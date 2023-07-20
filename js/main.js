@@ -2,28 +2,28 @@ const limitRetry = 3;
 let CreditoSeleccionado = "";
 const credits = [
   {
-    nombre: "creditExpress",
-    montoMinimo: 100000,
-    montoMaximo: 600000,
+    nombre: "creditSilver",
+    montoMinimo: 600000,
+    montoMaximo: 1000000,
     edadMinima: 18,
     edadMaxima: 70,
     interes: 0.10, 
   },
   {
-    nombre: "creditojr",
-    montoMinimo: 200000,
-    montoMaximo: 600000,
+    nombre: "creditGold",
+    montoMinimo: 1000000,
+    montoMaximo: 7000000,
     edadMinima: 25,
     edadMaxima: 65,
     interes: 0.25,
   },
   {
-    nombre: "creditplus",
-    montoMinimo: 300000,
-    montoMaximo: 8000000,
+    nombre: "creditBlack",
+    montoMinimo: 3000000,
+    montoMaximo: 70000000,
     edadMinima: 28,
     edadMaxima: 60,
-    interes: 0.20,
+    interes: 0.22,
   },
 ];
 
@@ -56,7 +56,14 @@ function iniciarProceso() {
 }
 
 const seleccionarCredito = () => {
-  const opciones = credits.map((credito, index) => `${index + 1}. ${credito.nombre}`);
+  // const opciones = credits.map((credito, index) => `${index + 1}. ${credito.nombre}`);
+  const opciones = credits.map((credito, index) => {
+    const { nombre, montoMinimo, montoMaximo, edadMinima, edadMaxima, interes} = credito;
+    const montoMinimoFormateado = fMoney(montoMinimo);
+    const montoMaximoFormateado = fMoney(montoMaximo);
+    return `${index + 1} ${nombre}: Monto: ${montoMinimoFormateado} - ${montoMaximoFormateado}, Edad:${edadMinima} - ${edadMaxima}, Interes: ${interes}`;
+  });
+
   const eleccion = parseInt(prompt(`Seleccione un tipo de crédito:\n${opciones.join("\n")}`));
 
   if (isNaN(eleccion) || eleccion < 1 || eleccion > credits.length) {
