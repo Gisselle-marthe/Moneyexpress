@@ -92,16 +92,15 @@
   outline: none;
 }
 /* FORMULARIO =================================== */
-.section-form{
+.section-form {
   background-color: #012d4d;
   width: auto;
-  height:110vh;
-
+  height: 110vh;
 }
 
 .form_wrap {
   width: 1050px;
-  height:auto;
+  height: auto;
   margin: 50px auto;
   display: flex;
 
@@ -126,8 +125,6 @@
   opacity: 0.5;
 }
 /* Resto de estilos para las cards... */
-
-
 
 .cantact_info {
   width: 38%;
@@ -249,11 +246,11 @@ form.form_contact input[type="button"] {
   cursor: pointer;
 }
 form.form_contact input[type="button"]:hover {
-  background: #d1d1d1;
+  background: rgb(86, 162, 255);
 }
 
 /* CARD FORUM */
-.card_credits{
+.card_credits {
   width: calc(23.33% - 20px);
   display: flex;
   flex-direction: column;
@@ -269,7 +266,13 @@ form.form_contact input[type="button"]:hover {
 }
 
 .card_credits.selected {
-  transform:scale(1.05);
+  transform: scale(1.05);
   border: 2px solid rgb(86, 162, 255); /* Bordes más gruesos para resaltar */
   background-color: #f8f8f8; /* Fondo diferente para indicar selección */
-};
+}
+
+.footer {
+  width: auto;
+  height:auto;
+  background-color: #f0f0f0;
+}

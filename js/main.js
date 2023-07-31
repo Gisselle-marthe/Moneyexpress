@@ -25,7 +25,7 @@ const credits = [
     edadMaxima: 60,
     interes: 0.22,
   },
-  
+
 ];
 const cuotasMapping = [3, 6, 9, 12];
 
@@ -56,10 +56,10 @@ const elegirCredito = (index) => {
   console.log(`Crédito seleccionado: ${index}`);
   selectedCredit = credits[index];
 
- 
+
   const cards = document.querySelectorAll(".card_credits");
 
- 
+
   cards.forEach(card => {
     card.classList.remove("selected");
   });
@@ -75,9 +75,29 @@ const getUserData = () => {
   const cuotasOption = parseInt(document.getElementById("cuotas").value);
   const cuotas = cuotasMapping[cuotasOption - 1];
 
+  // Validar que los campos estén llenos
+  if (!names || isNaN(edad) || isNaN(monto) || !email || !cuotasOption) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Por favor, complete todos los campos antes de enviar la solicitud.'
+    });
+    return;
+  }
+
+  if (!selectedCredit) {
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: 'Por favor, seleccione un crédito antes de continuar.'
+    });
+    return;
+  }
+
+
   if (selectedCredit) {
     if (edad < selectedCredit.edadMinima || edad > selectedCredit.edadMaxima) {
-      
+
       console.log(
         "La edad no cumple con los requisitos del crédito seleccionado."
       );
@@ -88,6 +108,7 @@ const getUserData = () => {
       });
       return;
     }
+
 
     if (
       monto < selectedCredit.montoMinimo ||
@@ -104,7 +125,7 @@ const getUserData = () => {
       return;
     }
 
-    const montoTotal = monto + (monto * selectedCredit.interes) ;
+    const montoTotal = monto + (monto * selectedCredit.interes);
     const montoCuota = montoTotal / cuotas;
 
     const info = `
@@ -134,10 +155,19 @@ document.getElementById("submit").addEventListener("click", getUserData);
 getUserData();
 
 function fMoney(value) {
-    const formatter = new Intl.NumberFormat("es-CO", {
-      style: "currency",
-      currency: "COP",
-      minimumFractionDigits: 0,
-    });
-    return formatter.format(value);
-  }
+  const formatter = new Intl.NumberFormat("es-CO", {
+    style: "currency",
+    currency: "COP",
+    minimumFractionDigits: 0,
+  });
+  return formatter.format(value);
+}
+function scrollToSection(sectionId) {
+  const section = document.getElementById(sectionId);
+  const offsetTop = section.offsetTop;
+
+  window.scrollTo({
+    top: offsetTop,
+    behavior: "smooth"
+  });
+}
