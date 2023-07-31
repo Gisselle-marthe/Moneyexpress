@@ -2,18 +2,145 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MoneyExpress</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+  <link rel="stylesheet" href="./fontawesome-free-6.4-2.0-web/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+  <title>MoneyExpress</title>
 </head>
 
 <body>
-    <div id="div1">Credito Junior</div>
-        <div id="div3">
-          <button onclick="iniciarProceso()">Solicitar Credito</button>
+  <header>
+    <nav class="navbar bg-color navbar-expand-lg bg-indigo">
+      <div class="container-fluid bg-body-danger">
+        <button class="navbar-toggler bg-body-danger" type="button" data-bs-toggle="collapse"
+          data-bs-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false"
+          aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+          <a class="navbar-brand text-black" href="#">MoneyExpress</a>
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0 text-center">
+            <li class="nav-item">
+              <a class="nav-link active text-dark" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item ">
+              <a class="nav-link text-dark" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled text-secondary" aria-disabled="true">Disabled</a>
+            </li>
+          </ul>
+
         </div>
-    <script src="./js/main.js"></script>
-    
+      </div>
+    </nav>
+  </header>
+  <section class="banner justify-content-center align-items-center ">
+
+    <div class="container mt- justify-content-center align-items-center">
+      <div class="row gs__banner">
+        <div class="col-md-6 mt-2">
+          <img src="./img/cwok_casual_62.png" class="img-fluid gs__banner__img animacion-texto"
+            alt="hamburguesa carnvalera">
+        </div>
+        <div class="col-md-6 mt-5 justify-content-center align-items-center ">
+          <h2 class=" text-light animacion-texto ">MoneyExpress</h2>
+          <p class=" mt-1 text-light">Dinero al Instante
+          </p>
+          <p class="text-light">
+            Bienvenidos a nuestra página de préstamos de crédito con los mejores intereses y condiciones flexibles para
+            todos. Ofrecemos soluciones adaptadas a cada persona, ya sea emprendedores, estudiantes o aquellos que
+            necesitan consolidar deudas. Nuestro equipo experto te guiará en todo el proceso para asegurar que
+            encuentres el préstamo adecuado. Compara diversas ofertas en nuestro sitio web fácil y seguro, y comienza tu
+            camino hacia un futuro financiero más próspero hoy mismo.</p>
+          <button type="button" class="btn btn-dark">Solicitar un credito</button>
+
+        </div>
+      </div>
+    </div>
+  </section>
+  <h1 class="animacion-texto mt-5 text-center"> Por que Solicitar con MoneyExpress?</h1>
+  <!-- Cards porque money -->
+  <section class="creditos">
+    <div class="container_card__info">
+      <div class="card__info">
+        <i class="fas fa-rocket"></i>
+        <h3>Velocidad</h3>
+        <p>Nuestro servicio de delivery es rápido y confiable.</p>
+      </div>
+      <div class="card__info">
+        <i class="fa-solid fa-hand-holding-heart"></i>
+        <h3>Flexibilidad en las condiciones</h3>
+        <p>Entendemos que cada persona tiene necesidades financieras únicas, por lo que ofrecemos condiciones de crédito
+          flexibles y adaptadas a cada perfil. </p>
+      </div>
+      <div class="card__info">
+        <i class="fas fa-hand-holding-usd"></i>
+        <h3>Tasas de interés competitivas</h3>
+        <p class="text-justify">Priorizamos tasas de interés altamente competitivas para nuestros clientes, lo que les
+          brinda la oportunidad de obtener crédito sin pagar intereses excesivos.</p>
+      </div>
+    </div>
+  </section>
+
+  <div>
+    <div class="section-form">
+      <h1></h1>
+      <section class="form_wrap bg-color">
+        <section class="cantact_info">
+          <section class="info_title">
+            <span class="fa fa-user-circle"></span>
+            <h2>SOLICITUD<br>DE CREDITO</h2>
+          </section>
+          <section class="info_items">
+            <p><span class=""></span> Soporte@MoneyExpress.com</p>
+            <p><span class=""></span> Whatsapp: +57 304 5365 281</p>
+          </section>
+        </section>
+
+        <form id="" action="" class="form_contact">
+          <h2 class="text-center">Seleccione el tipo de credito</h2>
+          <div class="row col1">
+            <div class="container text-center">
+              <div id="card_container" class="row">
+
+              </div>
+              <h2 class=" text-start ">Completa tu solicitud de crédito:</h2>
+              <div class="user_info">
+                <label for="names">Nombres Completo *</label>
+                <input type="text" id="names">
+                <label for="edad">Edad*</label>
+                <input type="number" id="edad">
+                <label for="monto">Monto a Solicitar *</label>
+                <input type="number" id="monto">
+                <label for="email">Correo electronico *</label>
+                <input type="text" id="email">
+                <label for="cuotas">Seleccione el plazo del Prestamo:</label>
+                <select name="cuotas" id="cuotas">
+                  <option value="1">Seleccione el plazo</option>
+                  <option value="2">3 meses</option>
+                  <option value="3">6 meses</option>
+                  <option value="4">9 meses</option>
+                  <option value="5">12 meses</option>
+                </select>
+              </div>
+              <input type="button" value="Enviar Mensaje" id="submit">
+            </div>
+          </div>
+        </form>
+      </section>
+
+    </div>
 </body>
 
 </html>
+<script src="./js/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+  integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>s

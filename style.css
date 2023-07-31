@@ -1,0 +1,275 @@
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Poppins:wght@400;600;700&family=Roboto+Flex&family=Roboto:wght@100;500;700&display=swap");
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.bg-color {
+  background-color: #f6f6f6;
+}
+.banner {
+  background-color: #012d4d;
+}
+.creditos {
+  margin: 20px;
+}
+.icons {
+  width: 300px;
+  color: #0a5083;
+  size: 200px;
+}
+.card__info {
+  width: calc(23.33% - 20px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 10px;
+  border: 2px solid #3b79a5;
+  border-radius: 10px;
+  margin: 10px;
+  background-color: #fcfbfb;
+  transition: transform 0.7s;
+}
+.container_card__info {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 53px 0;
+}
+.container_card__info i {
+  font-size: 50px;
+  margin-bottom: 20px;
+}
+.container_card__info:hover i {
+  font-size: 60px;
+}
+.container_card__info h3 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+.container_card__info p {
+  font-size: 16px;
+}
+.text-justify {
+  text-align: justify;
+}
+
+.card__info:hover {
+  /* background-color: #025087b1; */
+  transform: scale(1.05);
+}
+
+/* Estilo inicial del texto antes de la animación */
+.animacion-texto {
+  opacity: 0; /* Hace que el texto sea invisible al principio */
+}
+
+/* Definición de la animación usando @keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0; /* Comienza con una opacidad de 0 (invisible) */
+    transform: translateY(
+      20px
+    ); /* Empieza la animación desplazando el texto hacia abajo */
+  }
+  to {
+    opacity: 1; /* Termina con una opacidad de 1 (completamente visible) */
+    transform: translateY(
+      0
+    ); /* Finaliza la animación volviendo el texto a su posición original */
+  }
+}
+
+/* Aplicación de la animación al elemento cuando la página carga */
+.animacion-texto {
+  animation: fadeIn 1.5s ease-out forwards; /* Nombre de la animación, duración, curva de aceleración y fill-mode */
+}
+/* formulario */
+:focus {
+  outline: none;
+}
+/* FORMULARIO =================================== */
+.section-form{
+  background-color: #012d4d;
+  width: auto;
+  height:110vh;
+
+}
+
+.form_wrap {
+  width: 1050px;
+  height:auto;
+  margin: 50px auto;
+  display: flex;
+
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Informacion de Contacto*/
+
+.cantact_info::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  background-color: #5a5a5a;
+  opacity: 0.5;
+}
+/* Resto de estilos para las cards... */
+
+
+
+.cantact_info {
+  width: 38%;
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  background-image: url("../assent/img/lamparas-vintage-cafe.jpg");
+  background-size: cover;
+  background-position: center center;
+}
+
+.info_title,
+.info_items {
+  position: relative;
+  z-index: 2;
+  color: white;
+}
+
+.info_title {
+  margin-bottom: 60px;
+}
+
+.info_title span {
+  font-size: 100px;
+  display: block;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.info_title h2 {
+  font-size: 35px;
+  text-align: center;
+}
+
+.info_items p {
+  display: flex;
+  align-items: center;
+
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.info_items p:nth-child(1) span {
+  font-size: 30px;
+  margin-right: 10px;
+}
+
+.info_items p:nth-child(2) span {
+  font-size: 50px;
+  margin-right: 15px;
+  margin-left: 4px;
+}
+
+/* Formulario de contacto*/
+
+form.form_contact {
+  width: 100%;
+  height: auto;
+  padding: 30px 40px;
+  margin-top: 20px;
+}
+
+form.form_contact h2 {
+  font-size: 25px;
+  font-weight: 600;
+  color: #303030;
+  margin-bottom: 30px;
+}
+
+form.form_contact .user_info {
+  display: flex;
+  flex-direction: column;
+  text-align: start;
+}
+
+form.form_contact label {
+  font-weight: 600;
+}
+
+form.form_contact input,
+form.form_contact textarea {
+  width: 100%;
+  padding: 8px 0px 5px;
+  margin-bottom: 20px;
+
+  border: none;
+  border-bottom: 2px solid #d1d1d1;
+
+  font-family: "Open sans";
+  color: #5a5a5a;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+form.form_contact textarea {
+  max-width: 100%;
+  min-width: 100%;
+  max-height: 90px;
+}
+
+form.form_contact input[type="button"] {
+  width: 180px;
+  background: #012d4d;
+  padding: 10px;
+  border: none;
+  border-radius: 25px;
+
+  align-self: flex-end;
+
+  color: #fff;
+  /* font-family: "Open sans"; */
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+}
+form.form_contact input[type="button"]:hover {
+  background: #d1d1d1;
+}
+
+/* CARD FORUM */
+.card_credits{
+  width: calc(23.33% - 20px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 10px;
+  border: 2px solid #3b79a5;
+  border-radius: 10px;
+  margin: 10px;
+  background-color: #fcfbfb;
+  transition: transform 0.7s;
+}
+
+.card_credits.selected {
+  transform:scale(1.05);
+  border: 2px solid rgb(86, 162, 255); /* Bordes más gruesos para resaltar */
+  background-color: #f8f8f8; /* Fondo diferente para indicar selección */
+};

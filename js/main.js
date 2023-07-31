@@ -2,15 +2,15 @@ const limitRetry = 3;
 let CreditoSeleccionado = "";
 const credits = [
   {
-    nombre: "creditSilver",
+    nombre: "Silver",
     montoMinimo: 600000,
     montoMaximo: 1000000,
     edadMinima: 18,
     edadMaxima: 70,
-    interes: 0.10, 
+    interes: 0.20,
   },
   {
-    nombre: "creditGold",
+    nombre: "Gold",
     montoMinimo: 1000000,
     montoMaximo: 7000000,
     edadMinima: 25,
@@ -18,169 +18,126 @@ const credits = [
     interes: 0.25,
   },
   {
-    nombre: "creditBlack",
+    nombre: "Black",
     montoMinimo: 3000000,
     montoMaximo: 70000000,
     edadMinima: 28,
     edadMaxima: 60,
     interes: 0.22,
   },
-];
-
-// for (let i = 0; i < credits.length; i++) {
-//   console.log(credits[i]);
-// }
-
-function iniciarProceso() {
-  alert("Bienvenid@ a MoneyExpress");
-  const NombreUsuario = prompt("Ingrese su Nombre completo, por favor.");
-  if (NombreUsuario == null || NombreUsuario == "") {
-    const reintentar = confirm(
-      "Nombre Invalido \n ¿desea intentalo nuevamente?"
-    );
-    if (reintentar) {
-      iniciarProceso();
-    } else {
-      return;
-    }
-  }
-  const msgVienvenida = `
-    Hola ${NombreUsuario} Bienvenido
-    ¿Deseas Comenzar la Solicitud ? 
-  `;
-  const SeguirCredito = confirm(msgVienvenida);
-  if (SeguirCredito) {
-    seleccionarCredito();
-    PrestamoJunior(NombreUsuario);
-  }
-}
-
-const seleccionarCredito = () => {
-  // const opciones = credits.map((credito, index) => `${index + 1}. ${credito.nombre}`);
-  const opciones = credits.map((credito, index) => {
-    const { nombre, montoMinimo, montoMaximo, edadMinima, edadMaxima, interes} = credito;
-    const montoMinimoFormateado = fMoney(montoMinimo);
-    const montoMaximoFormateado = fMoney(montoMaximo);
-    return `${index + 1} ${nombre}: Monto: ${montoMinimoFormateado} - ${montoMaximoFormateado}, Edad:${edadMinima} - ${edadMaxima}, Interes: ${interes}`;
-  });
-
-  const eleccion = parseInt(prompt(`Seleccione un tipo de crédito:\n${opciones.join("\n")}`));
-
-  if (isNaN(eleccion) || eleccion < 1 || eleccion > credits.length) {
-    alert("Opción inválida. Por favor, seleccione una opción válida.");
-    iniciarProceso();
-    return;
   
-  }
+];
+const cuotasMapping = [3, 6, 9, 12];
 
+let selectedCredit = null;
 
-  const creditoSeleccionado = credits[eleccion - 1];
-  CreditoSeleccionado = creditoSeleccionado.nombre;
-  alert(`Ha seleccionado el crédito ${creditoSeleccionado.nombre}`);
+const PintarCreditos = () => {
+  const card_container = document.getElementById("card_container");
+  console.log(card_container);
+  credits.forEach((credit, index) => {
+    const div = document.createElement("div");
+    div.className = "col card_credits";
+    div.innerHTML = `
+      <i class="fas fa-rocket"></i>
+      <h3>${credit.nombre}</h3>
+      <p > ${fMoney(credit.montoMinimo)} - ${fMoney(credit.montoMaximo)} </p>
+      <h5>Requisitos</h5>
+      <p> Edad: ${credit.edadMinima} - ${credit.edadMaxima} </p>
+      <p> Interes: ${credit.interes}</p>
+    `;
+    div.addEventListener("click", () => elegirCredito(index));
+    card_container.appendChild(div);
+  });
 };
 
-function PrestamoJunior(usuario) {
-  const validEdad = validacionDeEdad();
-  if (validEdad) {
-    alert("Se ha excedido el número máximo de intentos. La solicitud se cancela.");
-    return;
-  }
-  const monto = validarMonto();
-  if (!monto) {
-    return;
-  }
-  const cuotas = validarCuotas();
-  if (!cuotas) {
-    return;
-  }
-  calcularResultado(usuario, monto, cuotas);
-}
+PintarCreditos();
 
-function validacionDeEdad() {
-  const creditoSeleccionado = credits.find((credito) => credito.nombre === CreditoSeleccionado);
+const elegirCredito = (index) => {
+  console.log(`Crédito seleccionado: ${index}`);
+  selectedCredit = credits[index];
 
-  let intentos = 1;
-  let edad = 0;
-  while (intentos <= limitRetry) {
-    edad = parseInt(prompt("Ingrese su edad:"));
+ 
+  const cards = document.querySelectorAll(".card_credits");
 
-    if (isNaN(edad)) {
-      const msg = `Intento #${intentos} de ${limitRetry}\nEdad inválida.`;
-      alert(msg);
-    } else if (edad < creditoSeleccionado.edadMinima || edad > creditoSeleccionado.edadMaxima) {
-      const msg = `Intento #${intentos} de ${limitRetry}\nDebe tener entre ${creditoSeleccionado.edadMinima} y ${creditoSeleccionado.edadMaxima} años para solicitar el crédito.`;
-      alert(msg);
-    } else {
-      break;
+ 
+  cards.forEach(card => {
+    card.classList.remove("selected");
+  });
+
+  // Agregar la clase "selected" solo a la card seleccionada
+  cards[index].classList.add("selected");
+};
+const getUserData = () => {
+  const names = document.getElementById("names").value;
+  const edad = parseInt(document.getElementById("edad").value);
+  const monto = parseInt(document.getElementById("monto").value);
+  const email = document.getElementById("email").value;
+  const cuotasOption = parseInt(document.getElementById("cuotas").value);
+  const cuotas = cuotasMapping[cuotasOption - 1];
+
+  if (selectedCredit) {
+    if (edad < selectedCredit.edadMinima || edad > selectedCredit.edadMaxima) {
+      
+      console.log(
+        "La edad no cumple con los requisitos del crédito seleccionado."
+      );
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'La edad no cumple con los requisitos del crédito seleccionado.'
+      });
+      return;
     }
 
-    intentos++;
-    alert("Debe cumplir con el rango de edad para realizar la solicitud.");
+    if (
+      monto < selectedCredit.montoMinimo ||
+      monto > selectedCredit.montoMaximo
+    ) {
+      console.log(
+        "El monto no cumple con los requisitos del crédito seleccionado."
+      );
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'El monto no cumple con los requisitos del crédito seleccionado.'
+      });
+      return;
+    }
+
+    const montoTotal = monto + (monto * selectedCredit.interes) ;
+    const montoCuota = montoTotal / cuotas;
+
+    const info = `
+      Solicitud de crédito válida para: ${names}
+      Crédito seleccionado: ${selectedCredit.nombre}
+      Monto total:${fMoney(montoTotal)}
+      Número de cuotas: ${cuotas}
+      Monto de cada cuota:${fMoney(montoCuota)}
+    `;
+    localStorage.setItem('creditInfo', JSON.stringify(info));
+    Swal.fire(
+      'Solicitud de crédito válida',
+      info,
+      'success'
+    );
+
+    console.log(info); // Aquí es donde necesitas imprimir la variable 'info'
+  } else {
+    console.log("No se ha seleccionado ningún crédito.");
   }
+};
 
-  return intentos > limitRetry;
-}
+// Agregar un controlador de eventos al botón
+document.getElementById("submit").addEventListener("click", getUserData);
 
-
-function validarMonto() {
-  const creditoSeleccionado = credits.find((credito) => credito.nombre === CreditoSeleccionado);
-  const rangeMonto = `${fMoney(creditoSeleccionado.montoMinimo)} -/- ${fMoney(creditoSeleccionado.montoMaximo)}`;
-  let monto = parseInt(prompt(`Ingrese el monto a Solicitar (${rangeMonto}):`));
-  if (monto > creditoSeleccionado.montoMaximo || monto < creditoSeleccionado.montoMinimo) {
-    alert(`Monto inválido. Debe ingresar un monto dentro del rango establecido (${rangeMonto}).`);
-    monto = parseInt(prompt("Por favor ingresa nuevamente un monto valido:"));
-  }
-  if (isNaN(monto) || monto > creditoSeleccionado.montoMaximo || monto < creditoSeleccionado.montoMinimo) {
-    alert("Monto invalido, Solicitud cancelada.");
-    return null;
-  }
-  return monto;
-}
-
-function validarCuotas() {
-  const msgCuotas = `
-    Seleccione el plazo del préstamo:
-      #[1] 3 meses
-      #[2] 6 meses
-      #[3] 9 meses
-      #[4] 12 meses
-  `;
-  let nroCouta = parseInt(prompt(msgCuotas));
-  if (isNaN(nroCouta) || nroCouta > 4 || nroCouta < 1) {
-    alert("Número de cuotas no válido. Por favor, seleccione un número de cuotas válido.");
-    nroCouta = parseInt(prompt(msgCuotas));
-  }
-
-  if (isNaN(nroCouta) || nroCouta > 4 || nroCouta < 1) {
-    alert("Solicitud cancelada. Ha excedido el número de intentos válidos. Por favor, vuelva a intentar solicitar el crédito.");
-    return null;
-  }
-  return nroCouta * 3;
-}
-
-function calcularResultado(usuario, monto, cuotas) {
-  const creditoSeleccionado = credits.find((credito) => credito.nombre === CreditoSeleccionado);
-  const MontoConInteres = monto * creditoSeleccionado.interes;
-  const MontoTotal = MontoConInteres + monto;
-  const valorCuota = MontoTotal / cuotas;
-  const msg = `
-      NOMBRE DEL CRÉDITO: ${creditoSeleccionado.nombre}
-      USUARIO: ${usuario}
-      DEUDA TOTAL: ${fMoney(MontoTotal)}
-      INTERÉS: ${creditoSeleccionado.interes * 100}% ANUAL
-      CANTIDAD DE CUOTAS: ${cuotas}
-      VALOR DE CUOTA: ${fMoney(valorCuota)}
-  `;
-  alert(msg);
-}
+// Llamar a la función para obtener los datos del usuario
+getUserData();
 
 function fMoney(value) {
-  const formatter = new Intl.NumberFormat("es-CO", {
-    style: "currency",
-    currency: "COP",
-    minimumFractionDigits: 0,
-  });
-  return formatter.format(value);
-}
-
-iniciarProceso();
+    const formatter = new Intl.NumberFormat("es-CO", {
+      style: "currency",
+      currency: "COP",
+      minimumFractionDigits: 0,
+    });
+    return formatter.format(value);
+  }
