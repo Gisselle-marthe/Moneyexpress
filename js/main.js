@@ -27,7 +27,7 @@ const credits = [
   },
 
 ];
-const cuotasMapping = [3, 6, 9, 12];
+const cuotasMapping = [0,3, 6, 9, 12];
 
 let selectedCredit = null;
 
@@ -73,7 +73,7 @@ const getUserData = () => {
   const monto = parseInt(document.getElementById("monto").value);
   const email = document.getElementById("email").value;
   const cuotasOption = parseInt(document.getElementById("cuotas").value);
-  const cuotas = cuotasMapping[cuotasOption - 1];
+  const cuotas = cuotasMapping[cuotasOption];
 
   // Validar que los campos estén llenos
   if (!names || isNaN(edad) || isNaN(monto) || !email || !cuotasOption) {
